@@ -8,6 +8,8 @@ var proveedoresController = function($scope, $http) {
     
     $scope.mostrar = false; 
 
+	$scope.mostrarDatePikerActalizarFecha = false;
+
 	$("#buscarProvInput").autocomplete({
 		source: function (request, response)
 	    {
@@ -76,22 +78,30 @@ $scope.agregar = function () {
     
    $scope.actualizarUltimaVisita = function($event) {
 		$event.preventDefault();
+		if($scope.nuevaUltimaFecha === undefined) {
+			swal("Por favor ingrese una nueva fecha",{icon:"error"});
+			return;
+		}
 		swal({
-			title: 'Seguro que quieres actualizar el registro?',
-			text: 'Se sobreescribira la fecha de ultima visita!!!',
+			title: 'Seguro que quieres actualizar el registro de la ultima visita?',
+			text: 'Se sobreescribira la fecha de ultima visita con ' + $scope.nuevaUltimaFecha.toLocaleDateString(),
 			icon:'warning',
-			buttons: ["Mmm... Mejor no!", true],}).then(
+			buttons: ["Mmm... Mejor no!", true]}).then(
 				function(result) {
 					if(result) {
 						$http({
 							headers: { 'Content-Transfer-Encoding': 'utf-8' },
 							url: 'api/agregarUltimaFechaProveedor.php',
 							method: 'POST',
-							data: {id:$scope.selectedUserId}
+							data: {
+								id:$scope.selectedUserId,
+								nuevaFecha: $scope.nuevaUltimaFecha.getTime() / 1000
+							}
 						}).then(function ok(res) {
 							swal("Registro actualizado!",
 								"El registro del proveedor fue actualizado.",
 								"success");
+							mostrarDatePikerActalizarFecha = false;
 							$scope.cancelar();
 						}, function err(error) {
 							swal(error.data.msg, { icon: "error" } );

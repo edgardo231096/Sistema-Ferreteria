@@ -3,24 +3,25 @@
 
 	//Checar que recibimos los parametros obligatorios
 	if(
-		!property_exists($request,'id_prov') ||
-		!property_exists($request,'f_ultima_visita_timestamp') 
+		!property_exists($request,'id') ||
+		!property_exists($request,'nuevaFecha')
 	) {
-		echoError("No se pudo guardar el usuario: Parametros incompletos");
+		echoError("No se pudo actualizar la fecha: Parametros incompletos");
 	}
 
-
+	$nueva_fecha = new DateTime("@$request->nuevaFecha");
+    
 	$sql = "
 		UPDATE 
 		proveedor SET 
-		SET 
-		fecha_ultima_visita='$request->fecha_ultima_visita'
-		WHERE id_prov='$request->id_prov";
+		fecha_ultima_visita='".$nueva_fecha->format("Y-m-d")."' WHERE
+		id_prov = $request->id";
+
 	$result = $con->query($sql);
 
 	if($result){ 
-		echoMessage("Actualizacion Correcta ");
+		echoMessage("Fecha actualizada correctamente");
 	} else {
-		echoError("Error al guardar el registro");
+		echoError("Error al guardar el registro: ".$sql);
 	}
 ?>
