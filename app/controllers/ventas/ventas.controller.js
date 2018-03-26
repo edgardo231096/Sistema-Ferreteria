@@ -8,15 +8,15 @@ var ventasController = function($scope, $http, $routeParams) {
 	$scope.onsumbit = function() {
 		if($scope.modo_agregacion) {
 			$scope.alta();
+
+       		window.open("api/generarNota.php","_blank")
+        
 		} else if ($scope.modo_edicion) {
 			$scope.update();
 		}
 	}
 	
     $scope.generarNota=function($event){
-        $event.preventDefault();
-        window.open("app/ventas/generarNota.php","_blank")
-        
     }
     
 	$("#buscarClientInput").autocomplete({

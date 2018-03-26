@@ -67,7 +67,18 @@ var ordenController = function($scope, $http, $routeParams) {
 		$scope.editando = false;
 	} 
 	
-
+	$scope.cargarProductosPorOrden = function(no_orden,fecha_orden) {
+		$http({
+			url: 'api/obtenerProductosPorNoOrden.php',
+            method: 'POST',
+            data: {no_orden: no_orden,
+            	fecha_orden: fecha_orden}
+		}).then(function(resp) {
+			$scope.resultados = resp.data;
+		},function(err) {
+			swal(err.data.msg, { icon: "error" } );			
+		})
+	}
 	$scope.eliminar = function($event,$index) {
 		$event.preventDefault();
 		swal({
@@ -104,7 +115,12 @@ var ordenController = function($scope, $http, $routeParams) {
 		$scope.editando = true;
 		$scope.cargarOrdenPorId($routeParams.id);
 	}
-	
+
+	$scope.verProductosOrden = function($event, indice) {
+		$event.preventDefault();
+		var orden = $scope.ordenlista[indice];
+		$scope.cargarProductosPorOrden(orden.no_orden, orden.fecha_orden);
+	}	
 }
 
 empleadosController.$inject = ['$scope', '$http', '$routeParams'];

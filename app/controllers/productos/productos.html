@@ -73,7 +73,7 @@
 			<label for="proveedor">
 				Proveedor:
 			</label>
-			<select required ng-change="cargarCatalogoPorIdProv(id_prov)" ng-model="id_prov" class="form-control" ng-show="proveedoreslista && proveedoreslista.length > 0">
+			<select required ng-change="cargarCatalogoPorIdProv(id_prov);cargarOrdenPorIdProv(id_prov);" ng-model="id_prov" class="form-control" ng-show="proveedoreslista && proveedoreslista.length > 0">
 				<option value="" selected="selected" disabled="disabled">Seleccione un proveedor</option>						
 				<option ng-repeat="proveedor in proveedoreslista" value="{{proveedor.id_prov}}">{{proveedor.nombreCompleto}}</option>
 			</select>
@@ -83,7 +83,38 @@
 			</a>
 		</div>
 
-		<div class="form-group" ng-show="id_prov">
+
+		<div class="form-group" ng-disabled="modo_edicion" ng-show="modo_agregacion && ordenlista && ordenlista.length > 0">
+			<label>
+				No. Orden de compra:
+			</label>
+			<select required ng-change="setOrdenCompra(fac.no_orden_indice)" name="no_orden" ng-model="fac.no_orden_indice" class="form-control">
+				<option selected="selected" disabled="disabled">Seleccione una orden de compra</option>						
+				<option ng-repeat="oc in ordenlista" value="{{$index}}">{{oc.no_orden}} [{{oc.fecha_orden}}]</option>
+			</select>
+		</div>
+		<div class="form-group" ng-disabled="modo_edicion" ng-show="modo_agregacion && ordenlista && ordenlista.length > 0">
+			<label>
+				Unidades De Compra:
+			</label>
+
+			<input name="unidades_de_compra" ng-model="prod.unidades_compra" class="form-control" type="text" />
+		</div>
+		<div class="form-group" ng-disabled="modo_edicion" ng-show="modo_agregacion && ordenlista && ordenlista.length > 0">
+			<label>
+				Precio de compra:
+			</label>
+
+			<input name="precio_compra" ng-model="prod.precio_compra" class="form-control" type="number" step="ANY" />
+		</div>
+		<div class="form-group" ng-disabled="modo_edicion" ng-show="modo_agregacion && ordenlista && ordenlista.length > 0">
+			<label>
+				Cantidad de articulos en orden:
+			</label>
+
+			<input name="cantidad" ng-model="prod.cantidad" class="form-control" type="number" step="ANY" />
+		</div>
+		<div class="form-group" ng-show="id_prov !== undefined">
 			<label>
 				Catálogo:
 			</label>

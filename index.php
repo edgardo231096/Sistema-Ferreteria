@@ -204,6 +204,7 @@ session_start();
     <script src="app/app.js"></script>
 
     <!-- Components -->
+    <script src="app/controllers/devoluciones/devoluciones.controller.js"></script>
     <script src="app/controllers/empleados/empleados.controller.js"></script>
     <script src="app/controllers/proveedores/proveedores.controller.js"></script>
     <script src="app/controllers/dashboard/dashboard.controller.js"></script>

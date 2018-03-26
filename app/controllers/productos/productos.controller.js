@@ -20,6 +20,9 @@ var productosController = function($scope, $http, $routeParams) {
 					$scope.commonError();
 			});
 	}
+	$scope.setOrdenCompra = function(no_orden_compra) {
+		$scope.prod.orden = $scope.ordenlista[no_orden_compra];
+	}
 
 	$scope.eliminar = function($event) {
 		if($event)
@@ -53,7 +56,7 @@ var productosController = function($scope, $http, $routeParams) {
 		$scope.cargarProveedores(function() {
 			$scope.prod = $scope.busqueda.resultados[index];
 			$scope.id_prov = $scope.prod.id_prov.toString();
-	
+			$scope.cargarOrdenPorIdProv($scope.id_prov);
 			$scope.cargarCatalogoPorIdProv($scope.id_prov,function() {
 				$scope.prod.no_catalogo = $scope.prod.no_catalogo.toString();
 				$scope.cargarCatalogoAniosPorNoCat($scope.prod.no_catalogo);

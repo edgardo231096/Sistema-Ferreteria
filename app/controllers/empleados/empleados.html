@@ -135,6 +135,13 @@
 				</select>
 				<input ng-show="emp.cve_ent == undefined" class="form-control" type="text" value="Seleccione una entidad" disabled>
 			</div>
+			<div class="col col-sm-12 form-group">
+				<label for="pass">
+					Contraseña:
+				</label>
+				<input class="form-control" ng-model="emp.pass" type="password" value="Seleccione una entidad">
+			</div>
+
 		</div>
 		<div class="row">
 			<button ng-show="empNuevo" class="btn btn-success col-xs-10 col-xs-offset-1">Guardar</button>

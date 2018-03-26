@@ -28,13 +28,13 @@
 	mysqli_next_result($con);
 
 	$sql = "
-		INSERT INTO `venta` (`no_venta`, `fecha`, `hora`, `monto`, `tipo`, `es_a_credito`, `descuento`, `fecha_limite_pago`, `id_empleado`, `RFC`) VALUES ('$no_venta', '".$fecha->format('Y-m-d')."', '$request->hora', '$request->monto', '$request->tipo', '$es_a_credito', '$request->descuento', '".$fecha_limite_pago->format('Y-m-d')."', '$request->id_empleado', $RFC);
+		INSERT INTO `venta` (`no_venta`, `fecha`, `hora`, `monto`, `tipo`, `es_a_credito`, `descuento`, `fecha_limite_pago`, `id_empleado`, `RFC`) VALUES ('$no_venta', curdate(), '$request->hora', '$request->monto', '$request->tipo', '$es_a_credito', '$request->descuento', '".$fecha_limite_pago->format('Y-m-d')."', '$request->id_empleado', $RFC);
 		"; 
 	$result = $con->query($sql);
 	if($result) {
 		foreach($request->carritocompras as $articulo) {
 			$sql1 = "
-			INSERT INTO `producto_venta` (`codigo`, `marca`, `no_venta`, `fecha`, `precio_vendido`, `cantidad`, `unidades`) VALUES ('".$articulo->codigo."', '".$articulo->marca."', '".$no_venta."', '".$fecha->format('Y-m-d')."', '".$articulo->precio."', '".$articulo->cantidad."', '".$articulo->unidades."');
+			INSERT INTO `producto_venta` (`codigo`, `marca`, `no_venta`, `fecha`, `precio_vendido`, `cantidad`, `unidades`) VALUES ('".$articulo->codigo."', '".$articulo->marca."', '".$no_venta."', curdate(), '".$articulo->precio."', '".$articulo->cantidad."', '".$articulo->unidades."');
 			";
 			$tmpResult = $con->query($sql1);
 			if(!$tmpResult) {

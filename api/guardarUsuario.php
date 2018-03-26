@@ -16,6 +16,7 @@
 		!property_exists($request,'num_domicilio_ext') ||
 		!property_exists($request,'cp') ||
 		!property_exists($request,'cve_mun') ||
+		!property_exists($request,'pass') ||
 		!property_exists($request,'cve_ent')
 	) {
 		echoError("No se pudo guardar el usuario: Parametros incompletos");
@@ -52,7 +53,8 @@
 		num_domicilio_ext='$request->num_domicilio_ext',
 		cp='$request->cp',
 		cve_mun='$request->cve_mun',
-		cve_ent='$request->cve_ent';";
+		cve_ent='$request->cve_ent',
+		pass=sha1('$request->pass');";
 
 	$result = $con->query($sql);
 

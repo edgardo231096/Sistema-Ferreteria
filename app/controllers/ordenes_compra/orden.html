@@ -73,6 +73,7 @@
 		<th class="text-center">Fecha</th>
 		<th class="text-center"></th>
 		<th class="text-center"></th>
+		<th class="text-center"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -80,10 +81,35 @@
             <th scope="row" class="text-center">{{orden.no_orden}}</th>
 			<td class="text-center">{{orden.fecha_orden}}</td>
 			<td class="text-center"><button class="btn btn-warning form-control" ng-click="eliminar($event,$index);">Eliminar</button></td>
+			<td class="text-center"><button class="btn btn-warning form-control" ng-click="verProductosOrden($event,$index);">Ver productos de esta orden</button></td>
 		</tr>
 	</tbody>
 </table>
 
+<div ng-show="resultados && resultados.length > 0">
+	<h6>Productos de esta orden:</h6>
+	<table class="table table-hover table-striped">
+		<thead class="thead-default">
+			<tr>
+			<th class="text-center">Código</th>
+			<th class="text-center">Nombre</th>
+			<th class="text-center">Precio Compra</th>
+			<th class="text-center">Precio Venta</th>
+			<th class="text-center">Unidades</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="p in resultados track by $index" title="{{p.descripcion}}">
+				<th scope="row" class="text-center">{{p.codigo}}</th>
+				<td class="text-center">{{p.nombre}}</td>
+				<td class="text-center">{{p.precio_compra | currency}}</td>
+				<td class="text-center">{{p.precio_venta | currency}}</td>
+				<td class="text-center">{{p.unidades}}</td>
+
+			</tr>
+		</tbody>
+	</table>
+</div>
 <div ng-show="oc.id_prov != undefined && ordenlista.length == 0 && !ocNuevo && !editando">
 	<br>
 	<div class="panel panel-danger text-center">
